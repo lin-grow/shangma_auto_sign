@@ -17,6 +17,15 @@ jobs:
       run: |
         echo "- Auto Sign-in run successful on $(date)" >> README.md
 
+        # 只保留最近 7 条签到记录
+        KEEP=7
+        TOTAL=$(grep -c '^- Auto Sign-in' README.md || true)
+        DROP=$((TOTAL - KEEP))
+        if [ "$DROP" -gt 0 ]; then
+          awk -v drop="$DROP" '/^- Auto Sign-in/{n++; if(n<=drop) next} {print}' README.md > README.new
+          mv README.new README.md
+        fi
+
     - name: Commit and push changes
       run: |
         git config --global user.name 'GitHub Action'
