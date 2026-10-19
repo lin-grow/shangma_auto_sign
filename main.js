@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import signIn from './sign_in.js'
 
 signIn()
@@ -7,4 +8,4 @@ signIn()
   .catch(error => {
     console.error('执行签到失败：', error.message)
     process.exit(1)
- })
+  })

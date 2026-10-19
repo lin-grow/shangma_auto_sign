@@ -2,15 +2,22 @@
 
 ### 基于 Node.js + GitHub Action 实现上海马拉松官网每日签到
 
+> 已适配上马官网 2025 年改版后的新接口（`apih5.shang-ma.com`），无需手动抓包。
+
 ### Use 使用
 
-1. Fork本项目（顺手点Star以示鼓励～🥳）
-2. 在Repo的Setting页面，添加名为上马官网的用户名：`SM_USERNAME`和密码：`SM_PASSWORD`的Secret 
-3. 手动测试运行
-<img width="1444" alt="image" src="https://github.com/zhaohongxuan/shangma_auto_sign/assets/8613196/695683c9-fbc2-4cab-9ef8-41e2ddf59b78">
-在控制台应该能看到 `签到成功/请勿重复签到` 的提示
-<img width="990" alt="image" src="https://github.com/zhaohongxuan/shangma_auto_sign/assets/8613196/399e89f7-2ad6-486e-9e67-8953564ec528">
+1. Fork 本项目（顺手点 Star 以示鼓励～🥳）
+2. 在 Repo 的 **Settings → Secrets and variables → Actions** 页面，添加两个 Repository secret：
+   - `SM_USERNAME`：上马官网的登录手机号 / 邮箱
+   - `SM_PASSWORD`：上马官网的登录密码
+3. 在 **Actions** 页面选择 `Run Auto Sign`，点击 `Run workflow` 手动测试运行
+4. 控制台应该能看到 `签到成功，当前积分：xxx` 或 `今日已签到，无需重复签到`
 
+### 本地运行
+
+1. `npm install`
+2. 复制 `.env.example` 为 `.env`，填写 `SM_USERNAME`、`SM_PASSWORD`
+3. `npm run sign`
 
 ### 关于Job执行时间
 签到Job执行时间是**UTC时间0点**，也就是**北京时间8点**执行，**不过由于GitHub的负载比较重**，真正签到时间可能延后一段时间，一般是几十分钟，这个延迟时间取决于GitHub Action的负载。
